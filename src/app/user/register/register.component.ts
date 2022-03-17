@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -7,9 +8,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
+  constructor(private auth: AuthService) {}
+
   showAlert = false;
-  alertMsg = 'Registeration completed!';
-  alertColor = 'blue';
+  alertMsg = '';
+  alertColor = '';
 
   // initialize controls outside of registerForm so it's type would stay FormControl
   // Not AbstractControl
@@ -40,8 +43,20 @@ export class RegisterComponent {
     phoneNumber: this.phoneNumber,
   });
 
-  register() {
+  async register() {
     this.showAlert = true;
-    this.alertMsg = 'Registeration completed!';
+
+    try {
+      await this.auth.createUser(this.registerForm.value);
+    } catch (err) {
+      console.log(err);
+
+      this.alertMsg =
+        'An error has occurred. please choose another email or try again later!';
+      this.alertColor = 'red';
+      return;
+    }
+    this.alertMsg = 'Registered successfully!';
+    this.alertColor = 'blue';
   }
 }
