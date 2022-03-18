@@ -1,6 +1,6 @@
-export default interface Iuser {
+export default interface IUser {
   email: string;
-  password: string;
+  password?: string;
   name: string;
   age: number;
   phoneNumber: number;
