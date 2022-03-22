@@ -6,9 +6,10 @@ import { ManageComponent } from './manage/manage.component';
 import { UploadComponent } from './upload/upload.component';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EditModalComponent } from './edit-modal/edit-modal.component';
 
 @NgModule({
-  declarations: [ManageComponent, UploadComponent],
+  declarations: [ManageComponent, UploadComponent, EditModalComponent],
   imports: [
     CommonModule,
     VideoRoutingModule,
