@@ -24,22 +24,46 @@ export class FfmpegService {
 
     this.ffmpeg.FS('writeFile', file.name, data);
 
-    await this.ffmpeg.run(
-      // Input
-      '-i',
-      file.name,
-      // Output Options
-      // --Time
-      '-ss',
-      '00:00:03',
-      // --Frame count
-      '-frames:v',
-      '1',
-      // --Frame size
-      '-filter:v',
-      'scale=510:-1',
-      // Output
-      'output_01.png'
-    );
+    const seconds = [3, 4, 5];
+    const commands: string[] = [];
+
+    seconds.forEach((second) => {
+      commands.push(
+        // Input
+        '-i',
+        file.name,
+        // Output Options
+        // --Time
+        '-ss',
+        `00:00:0${second}`,
+        // --Frame count
+        '-frames:v',
+        '1',
+        // --Frame size
+        '-filter:v',
+        'scale=510:-1',
+        // Output
+        `output_0${second}.png`
+      );
+    });
+
+    await this.ffmpeg.run(...commands);
+
+    const screenshots: string[] = [];
+
+    seconds.forEach((second) => {
+      const screenshotFile = this.ffmpeg.FS(
+        'readFile',
+        `output_0${second}.png`
+      );
+
+      const screenshotBlob = new Blob([screenshotFile.buffer], {
+        type: 'image/png',
+      });
+
+      const screenshotURL = URL.createObjectURL(screenshotBlob);
+      screenshots.push(screenshotURL);
+    });
+    return screenshots;
   }
 }
