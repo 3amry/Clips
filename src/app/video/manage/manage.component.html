@@ -64,4 +64,7 @@
   </div>
 </div>
 
-<app-edit-modal [activeClip]="activeClip"></app-edit-modal>
+<app-edit-modal
+  [activeClip]="activeClip"
+  (update)="update($event)"
+></app-edit-modal>

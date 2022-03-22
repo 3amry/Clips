@@ -54,4 +54,15 @@ export class ManageComponent implements OnInit {
 
     this.modal.toggleModal('editClip');
   }
+
+  update(event: IClip) {
+    if (!this.activeClip) return;
+    this.activeClip.title = event.title;
+
+    // this.clips.forEach((element, index) => {
+    //   if (element.docID == event.title) {
+    //     this.clips[index].title = event.title;
+    //   }
+    // });
+  }
 }
