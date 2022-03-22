@@ -4,7 +4,7 @@
 
     <!-- Upload Dropbox -->
     <div
-      *ngIf="!file; else uploadFormCtr"
+      *ngIf="!acceptableFormat; else uploadFormCtr"
       app-event-blocker
       (dragover)="isDragover = true"
       (dragenter)="isDragover = true"
