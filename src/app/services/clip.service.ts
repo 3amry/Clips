@@ -91,6 +91,6 @@ export class ClipService {
       });
     });
 
-    this.pendingReq = true;
+    this.pendingReq = false;
   }
 }
